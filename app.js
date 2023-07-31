@@ -1,9 +1,9 @@
 // index.js
-//require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-//const db = require('./db');
+const db = require('./db');
 const blogRoutes = require('./routes/blogs');
 const formRoutes = require('./routes/forms');
 const authRoutes = require('./routes/auth');
