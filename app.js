@@ -17,6 +17,9 @@ app.use(cors());
 app.use('/api', blogRoutes);
 app.use('/api', formRoutes);
 app.use('/api/auth', authRoutes);
+app.get("/test", function (req, res) {
+    res.send("Testing Vicky")
+});
 
 // Start server
 const port = process.env.PORT || 5000;
