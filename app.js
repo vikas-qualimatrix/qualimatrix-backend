@@ -38,5 +38,10 @@ app.get("/test", function (req, res) {
     res.send("Testing Vicky")
 });
 
+app.get("/testing", function (req, res) {
+    res.send("vikas")
+});
+
+
 app.listen(process.env.PORT || 5000);
 module.exports = app;
