@@ -26,7 +26,7 @@ require('dotenv').config();
 //     console.log(`Server is running on http://localhost:${port}`);
 // });
 
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 
 
 const express = require("express")
