@@ -1,7 +1,7 @@
 // db.js
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect("mongodb+srv://vikas:qualimatrix@qualimatrix.6irk4ri.mongodb.net/qualimatrix-backend", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
