@@ -1,5 +1,5 @@
 // index.js
-require('dotenv').config();
+//require('dotenv').config();
 // const express = require('express');
 // const bodyParser = require('body-parser');
 // const cors = require('cors');
@@ -32,7 +32,7 @@ const mongoose = require('mongoose');
 const express = require("express")
 const app = express()
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect("mongodb+srv://vikas:qualimatrix@qualimatrix.6irk4ri.mongodb.net/qualimatrix-backend", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
