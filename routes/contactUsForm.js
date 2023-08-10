@@ -38,28 +38,6 @@ router.post("/submit", upload.single("uploadFile"), async (req, res) => {
   }
 });
 
-// router.get("/get-file/:fileKey", async (req, res) => {
-//   try {
-//     const fileKey = req.params.fileKey;
-
-//     // Generate a pre-signed URL for the file
-//     const s3 = new AWS.S3();
-//     const params = {
-//       Bucket: "qualimatrix-bucket",
-//       Key: fileKey,
-//       Expires: 3600, // URL expiration time in seconds
-//     };
-//     const url = await s3.getSignedUrl("getObject", params);
-
-//     // Redirect the user to the pre-signed URL
-//     res.redirect(url);
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .json({ message: "Error getting file", error: error.message });
-//   }
-// });
-
 // Get all contact us form submissions
 router.get("/submissions", async (req, res) => {
   try {
