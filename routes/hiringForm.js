@@ -1,18 +1,53 @@
-// routes/hiringForm.js
 const express = require("express");
 const router = express.Router();
 const HiringForm = require("../models/hiringForm");
+const s3 = require("../config/s3"); // Import your S3 configuration
+const multer = require("multer");
 
-router.post("/submit", async (req, res) => {
+// Set up multer storage
+const storage = multer.memoryStorage(); // Store the file in memory as Buffer
+const upload = multer({ storage: storage });
+
+// Create a new contact us form submission
+router.post("/submit", upload.single("uploadFile"), async (req, res) => {
   try {
-    const formData = req.body; // Request body should contain the hiring form data
+    const formData = req.body; // Request body should contain the contact us form data
+
+    if (req.file) {
+      const file = req.file;
+
+      // Upload file to S3
+      const uploadParams = {
+        Bucket: "qualimatrix-bucket",
+        Key: `uploads/${Date.now()}-${file.originalname}`,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+      };
+      const uploadResult = await s3.upload(uploadParams).promise();
+
+      formData.uploadFile = uploadResult.Location; // Store S3 file URL
+    }
     const newForm = new HiringForm(formData);
     const savedForm = await newForm.save();
     res.status(201).json(savedForm);
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Error submitting hiring form", error: error.message });
+    res.status(400).json({
+      message: "Error submitting contact us form",
+      error: error.message,
+    });
+  }
+});
+
+// Get all contact us form submissions
+router.get("/submissions", async (req, res) => {
+  try {
+    const submissions = await HiringForm.find();
+    res.json(submissions);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching contact us submissions",
+      error: error.message,
+    });
   }
 });
 
