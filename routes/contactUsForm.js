@@ -51,4 +51,40 @@ router.get("/submissions", async (req, res) => {
   }
 });
 
+// Delete a contact us form submission by ID
+router.delete("/submissions/:id", async (req, res) => {
+  try {
+    const submissionId = req.params.id;
+
+    // Find the submission by ID
+    const submission = await ContactUsForm.findById(submissionId);
+
+    if (!submission) {
+      return res.status(404).json({ message: "Submission not found" });
+    }
+
+    // Delete file from S3 if it exists
+    if (submission.uploadFile) {
+      const fileKey = submission.uploadFile.split("/").pop(); // Extract file key from S3 URL
+
+      // Delete the file from S3
+      const deleteParams = {
+        Bucket: "qualimatrix-bucket",
+        Key: `uploads/${fileKey}`,
+      };
+      await s3.deleteObject(deleteParams).promise();
+    }
+
+    // Delete the submission from the database
+    await ContactUsForm.findByIdAndDelete(submissionId);
+
+    res.json({ message: "Submission deleted successfully" });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error deleting contact us submission",
+      error: error.message,
+    });
+  }
+});
+
 module.exports = router;

@@ -22,11 +22,11 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Use the routes
-app.use("/api", blogRoutes);
+app.use("/api/v1/blogs", blogRoutes);
 app.use("/api/v1/hiring", hiringFormRoutes);
 app.use("/api/v1/contact-us", contactUsFormRoutes);
 app.use("/api", formRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/api/v1", authRoutes);
 app.get("/hell", function (req, res) {
   res.send("helllllll");
 });
