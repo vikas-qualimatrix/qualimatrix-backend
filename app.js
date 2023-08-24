@@ -19,7 +19,12 @@ const app = express();
 
 // Middlewares
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://qualimatrix.tech",
+    credentials: true, // Allow cookies and other credentials
+  })
+);
 
 // Use the routes
 app.use("/api/v1/blogs", blogRoutes);
