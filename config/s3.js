@@ -2,8 +2,8 @@ const AWS = require("aws-sdk");
 
 // Set up AWS credentials
 const credentials = new AWS.Credentials({
-  accessKeyId: "AKIAU67LZ7QYU3HF6C2O",
-  secretAccessKey: "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",
+  accessKeyId: "AKIAU67LZ7QY4LKHY37N",
+  secretAccessKey: "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",
 });
 
 // Configure AWS SDK
